@@ -1,0 +1,85 @@
+.focus-gallery {
+    border-top: #000000 10px solid;
+}
+
+.focus-gallery {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden; /* esto evita que crezca verticalmente por la escala */
+    scroll-snap-type: x mandatory;
+    width: 100vw;       /* esto asegura que no sea más ancho que la pantalla */
+    height: 600px;      /* esto le da una altura fija razonable en lugar de 100vh si hay texto arriba */
+    align-items: center;
+    padding: 0 50%;     /* Truco para centrar mejor el primer y último item */
+    box-sizing: border-box;
+}
+
+.focus-gallery::-webkit-scrollbar {
+    display: none;
+}
+
+.item {
+    /* ... tus otras propiedades ... */
+    flex-shrink: 0; /* Evita que las imágenes se aplasten */
+    will-change: transform; /* Ayuda al navegador a renderizar mejor la animación */
+}
+
+.item {
+    flex: 0 0 300px;
+    width: 300px;
+    height: 400px;
+    border-radius: 20px;
+    overflow: hidden; 
+    scroll-snap-align: center;
+    
+    /* Mantenemos tu animación */
+    view-timeline-name: --item-visible;
+    view-timeline-axis: inline;
+    animation: focus-effect linear both;
+    animation-timeline: --item-visible;
+    
+
+    background: #222; 
+}
+
+.item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center; 
+    display: block;
+}
+
+
+
+@keyframes focus-effect {
+    0% {
+        transform: scale(0.7) rotateY(-25deg);
+        opacity: 0.4;
+        filter: blur(4px);
+    }
+    50% {
+        transform: scale(1.1) rotateY(0deg);
+        opacity: 1;
+        filter: blur(0px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    100% {
+        transform: scale(0.7) rotateY(25deg);
+        opacity: 0.4;
+        filter: blur(4px);
+    }
+}
+
+.back {
+    background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/bc9ffd43-db87-475c-a8f0-0e57fc3d5c43/d78kulu-b24d2638-94d3-45b1-b1ae-64da89313023.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTpmaWxlLmRvd25sb2FkIl0sIm9iaiI6W1t7InBhdGgiOiIvZi9iYzlmZmQ0My1kYjg3LTQ3NWMtYThmMC0wZTU3ZmMzZDVjNDMvZDc4a3VsdS1iMjRkMjYzOC05NGQzLTQ1YjEtYjFhZS02NGRhODkzMTMwMjMuZ2lmIn1dXX0.IP91S1cVplY2KNIw5krUyFbLCFcoFEtlep2ruV3MdhY');
+    background-size: cover;
+
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* esto evito el scroll horizontal */
+}
